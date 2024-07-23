@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form Validation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .error {
+            color: red;
+            font-size: 0.875em;
+            margin-top: 0.25em;
+        }
+        .container
+        {
+            width: 30%;
+            margin: 5% 35%;
+            padding: 2%;
+        }
+        form{
+            padding-top: 2%;
+        }
+     
+    </style>
+</head>
+<body class="bg-secondary">
+    <div class="container mt-5 bg-light">
+        <h2>Student Form</h2>
+        <form id="studentForm">
+            <!-- Text Input for Name -->
+            <div class="form-group">
+                <label for="studentName">Name</label>
+                <input type="text" class="form-control" id="studentName">
+                <span class="error" id="nameError"></span>
+            </div>
+            <!-- Text Input for Student ID -->
+            <div class="form-group">
+                <label for="studentID">Student ID</label>
+                <input type="text" class="form-control" id="studentID">
+                <span class="error" id="idError"></span>
+            </div>
+            <!-- Select for Department -->
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select class="form-control" id="department">
+                    <option value="">Select Department</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                </select>
+                <span class="error" id="departmentError"></span>
+            </div>
+            <!-- Radio Buttons for Gender -->
+            <div class="form-group">
+                <label style="padding-right: 10%;">Select Gender:</label>
+                <div class="form-check form-check-inline ">
+                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male">
+                    <label class="form-check-label" for="inlineRadio1">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female">
+                    <label class="form-check-label" for="inlineRadio2">Female</label>
+                </div>
+                <span class="error" id="genderError"></span>
+            </div>
+            <!-- Checkboxes for Interests -->
+            <div class="form-group">
+                <label style="padding-right: 10%;">Interests:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="sports">
+                    <label class="form-check-label" for="inlineCheckbox1">Sports</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="music">
+                    <label class="form-check-label" for="inlineCheckbox2">Music</label>
+                </div>
+            </div>
+            <!-- Description Field -->
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" maxlength="50">
+                <span class="error" id="descriptionError"></span>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Clear previous error messages
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('idError').textContent = '';
+            document.getElementById('departmentError').textContent = '';
+            document.getElementById('genderError').textContent = '';
+            document.getElementById('descriptionError').textContent = '';
+
+            let isValid = true;
+
+            // Validate Name
+            const name = document.getElementById('studentName').value;
+            if (name.trim() === '') {
+                document.getElementById('nameError').textContent = 'Please enter your name.';
+                isValid = false;
+            }
+
+            // Validate Student ID
+            const studentID = document.getElementById('studentID').value;
+            if (studentID.trim() === '') {
+                document.getElementById('idError').textContent = 'Please enter your student ID.';
+                isValid = false;
+            } else if (!/^\d+$/.test(studentID)) {
+                document.getElementById('idError').textContent = 'Student ID must be numeric.';
+                isValid = false;
+            }
+
+            // Validate Department
+            const department = document.getElementById('department').value;
+            if (department === '') {
+                document.getElementById('departmentError').textContent = 'Please select a department.';
+                isValid = false;
+            }
+
+            // Validate Gender
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                document.getElementById('genderError').textContent = 'Please select a gender.';
+                isValid = false;
+            }
+
+            // Validate Description
+            const description = document.getElementById('description').value;
+            if (description.trim() === '') {
+                document.getElementById('descriptionError').textContent = 'Please enter a description.';
+                isValid = false;
+            } else if (description.length > 50) {
+                document.getElementById('descriptionError').textContent = 'Description must be less than 50 characters.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Form submitted successfully!');
+                // Here you can handle form submission, e.g., send data to a server
+            }
+        });
+    </script>
+</body>
+</html>
