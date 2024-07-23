@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .error {
+            color: red;
+            font-size: 0.875em;
+        }
+        .container
+        {
+            width: 30%;
+            padding: 1% 2%;
+        }
+       
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container mt-5 bg-white">
+        <form id="employeeForm" class="needs-validation" novalidate>
+            <h1 class="mb-4"><b>Employee Form</b></h1>
+            <div class="form-row">
+                <!-- Employee ID -->
+                <div class="form-group col-sm-12">
+                    <label for="e_id">E_ID:</label>
+                    <input type="number" class="form-control" id="id" name="e_id" required>
+                    <span class="error" id="idError"></span>
+                </div><br>
+                <!-- Email -->
+                <div class="form-group col-sm-12">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <span class="error" id="emailError"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <!-- Department -->
+                <div class="form-group col-md-12">
+                    <label for="department">Department:</label>
+                    <select id="department" name="department" class="form-control" required>
+                        <option value="">Select Department</option>
+                        <option value="HR">HR</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="IT">IT</option>
+                    </select>
+                    <span class="error" id="departmentError"></span>
+                </div>
+                <!-- Gender -->
+                <div class="form-group col-sm-12">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" class="form-control" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <span class="error" id="genderError"></span>
+                </div>
+            </div>
+            <!-- Skills -->
+            <div class="form-group">
+                <label style="padding-right: 5%;">Skills:</label>
+                <div class="form-check form-check-inline ">
+                    <input class="form-check-input" type="checkbox" id="skill1" name="skills" value="JavaScript">
+                    <label class="form-check-label text-muted" for="skill1">JavaScript</label>
+                </div>
+                <div class="form-check form-check-inline ">
+                    <input class="form-check-input" type="checkbox" id="skill2" name="skills" value="Python">
+                    <label class="form-check-label text-muted" for="skill2">Python</label>
+                </div>
+                <div class="form-check form-check-inline ">
+                    <input class="form-check-input" type="checkbox" id="skill3" name="skills" value="Java">
+                    <label class="form-check-label text-muted" for="skill3">Java</label>
+                </div>
+            </div>
+            <!-- Employment Status -->
+            <div class="form-group">
+                <label style="padding-right: 4%;">Status:</label>
+                <div class="form-check form-check-inline ">
+                    <input class="form-check-input" type="radio" id="full_time" name="status" value="Full-time" required>
+                    <label class="form-check-label text-muted" for="full_time">Full-time</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="part_time" name="status" value="Part-time" required>
+                    <label class="form-check-label text-muted" for="part_time">Part-time</label>
+                </div>
+                <span class="error" id="statusError"></span>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('employeeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Clear previous error messages
+            document.getElementById('idError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('departmentError').textContent = '';
+            document.getElementById('genderError').textContent = '';
+            document.getElementById('statusError').textContent = '';
+
+            let isValid = true;
+
+            // Validate Employee ID
+            const id = document.getElementById('id').value;
+            if (id.trim() === '') {
+                document.getElementById('idError').textContent = 'Please enter an Employee ID.';
+                isValid = false;
+            }
+
+            // Validate Email
+            const email = document.getElementById('email').value;
+            if (email.trim() === '') {
+                document.getElementById('emailError').textContent = 'Please enter your email.';
+                isValid = false;
+            }
+
+            // Validate Department
+            const department = document.getElementById('department').value;
+            if (department.trim() === '') {
+                document.getElementById('departmentError').textContent = 'Please select a department.';
+                isValid = false;
+            }
+
+            // Validate Gender
+            const gender = document.getElementById('gender').value;
+            if (gender.trim() === '') {
+                document.getElementById('genderError').textContent = 'Please select a gender.';
+                isValid = false;
+            }
+
+            // Validate Employment Status
+            const status = document.querySelector('input[name="status"]:checked');
+            if (!status) {
+                document.getElementById('statusError').textContent = 'Please select employment status.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Form submitted successfully!');
+                // Here you can handle the form submission
+            }
+        });
+    </script>
+</body>
+</html>
